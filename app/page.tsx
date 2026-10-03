@@ -551,7 +551,10 @@ export default function Home() {
       paystack.resumeTransaction(
         paymentData.access_code,
         {
-          onSuccess: async (transaction) => {
+          onSuccess: async (transaction: {
+            reference?: string;
+            trxref?: string;
+          }) => {
             const successfulReference =
               transaction?.reference ||
               transaction?.trxref ||
@@ -570,7 +573,9 @@ export default function Home() {
             setPlacingOrder(false);
           },
 
-          onError: (error) => {
+          onError: (error: {
+            message?: string;
+          }) => {
             console.error("Paystack error:", error);
             setPlacingOrder(false);
 
